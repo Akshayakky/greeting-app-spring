@@ -1,11 +1,13 @@
 package com.bridgelabz.greetingapp.service;
 
+import com.bridgelabz.greetingapp.dto.UserDTO;
+
 public interface IGreetingService {
-    String getGreeting();
+    String getGreeting(String... name);
 
-    String addGreeting();
+    String addGreeting(UserDTO userDTO);
 
-    String updateGreeting();
+    String updateGreeting(String... name);
 
-    String deleteGreeting();
+    String deleteGreeting(String... name);
 }
