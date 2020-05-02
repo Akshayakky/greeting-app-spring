@@ -2,6 +2,7 @@ package com.bridgelabz.greetingapp.controller;
 
 import com.bridgelabz.greetingapp.dto.GreetingDTO;
 import com.bridgelabz.greetingapp.dto.UserDTO;
+import com.bridgelabz.greetingapp.model.Greeting;
 import com.bridgelabz.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
 
     @Autowired
-    IGreetingService greetingService;
+    private IGreetingService greetingService;
 
     @RequestMapping("/home/{name}")
     public GreetingDTO greeting(@PathVariable String name) {
@@ -34,8 +35,8 @@ public class GreetingController {
     }
 
     @PostMapping("/post")
-    public GreetingDTO greeting(@RequestBody UserDTO user) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.addGreeting(user));
+    public Greeting greeting(@RequestBody UserDTO user) {
+        return greetingService.addGreeting(user);
     }
 
     @PutMapping("/put/{name}")

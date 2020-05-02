@@ -1,11 +1,12 @@
 package com.bridgelabz.greetingapp.service;
 
 import com.bridgelabz.greetingapp.dto.UserDTO;
+import com.bridgelabz.greetingapp.model.Greeting;
 
 public interface IGreetingService {
     String getGreeting(String... name);
 
-    String addGreeting(UserDTO userDTO);
+    Greeting addGreeting(UserDTO userDTO);
 
     String updateGreeting(String... name);
 
