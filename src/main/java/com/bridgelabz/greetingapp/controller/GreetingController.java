@@ -1,8 +1,6 @@
 package com.bridgelabz.greetingapp.controller;
 
-import com.bridgelabz.greetingapp.dto.GreetingDTO;
 import com.bridgelabz.greetingapp.dto.UserDTO;
-import com.bridgelabz.greetingapp.exception.GreetingAppException;
 import com.bridgelabz.greetingapp.model.Greeting;
 import com.bridgelabz.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ public class GreetingController {
     private IGreetingService greetingService;
 
     @RequestMapping("/get/{id}")
-    public Greeting greeting(@PathVariable Long id) {
+    public Greeting greeting(@PathVariable long id) {
         return greetingService.getGreeting(id);
     }
 
@@ -38,17 +36,12 @@ public class GreetingController {
     }
 
     @PutMapping("/put/{name}")
-    public Greeting greeting(@PathVariable String name, @RequestParam(value = "id") long id) throws GreetingAppException {
+    public Greeting greeting(@PathVariable String name, @RequestParam(value = "id") long id) {
         return greetingService.updateGreeting(id, name);
     }
 
-    @DeleteMapping("/delete/{name}")
-    public GreetingDTO greetingDelete(@PathVariable String name) {
-        return new GreetingDTO(greetingService.deleteGreeting(name));
-    }
-
-    @DeleteMapping("/delete/{firstName}/{lastName}")
-    public GreetingDTO greetingDelete(@PathVariable String firstName, @PathVariable String lastName) {
-        return new GreetingDTO(greetingService.deleteGreeting(firstName, lastName));
+    @DeleteMapping("/delete/{id}")
+    public void greetingDelete(@PathVariable long id) {
+        greetingService.deleteGreeting(id);
     }
 }

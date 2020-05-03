@@ -2,7 +2,6 @@ package com.bridgelabz.greetingapp.service;
 
 import com.bridgelabz.greetingapp.dto.GreetingDTO;
 import com.bridgelabz.greetingapp.dto.UserDTO;
-import com.bridgelabz.greetingapp.exception.GreetingAppException;
 import com.bridgelabz.greetingapp.model.Greeting;
 import com.bridgelabz.greetingapp.repository.GreetingRepository;
 import org.modelmapper.ModelMapper;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -45,20 +43,14 @@ public class GreetingServiceImpl implements IGreetingService {
     }
 
     @Override
-    public Greeting updateGreeting(long id, String name) throws GreetingAppException {
-        if (greetingRepository.findById(id).equals(Optional.empty()))
-            throw new GreetingAppException(GreetingAppException.ExceptionType.ID_NOT_FOUND, "Id does not exist");
+    public Greeting updateGreeting(long id, String name) {
         Greeting greeting = greetingRepository.findById(id).get();
         greeting.setMessage(String.format(template, name));
         return greetingRepository.save(greeting);
     }
 
     @Override
-    public String deleteGreeting(String... name) {
-        String greeting = "Hello";
-        greeting += (name.length > 0) ? " " + name[0] : "";
-        greeting += (name.length > 1) ? " " + name[1] : "";
-        greeting = (greeting.equals("Hello")) ? "Hello World" : greeting;
-        return greeting;
+    public void deleteGreeting(long id) {
+        greetingRepository.delete(greetingRepository.getOne(id));
     }
 }

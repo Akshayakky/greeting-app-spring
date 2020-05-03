@@ -1,7 +1,6 @@
 package com.bridgelabz.greetingapp.service;
 
 import com.bridgelabz.greetingapp.dto.UserDTO;
-import com.bridgelabz.greetingapp.exception.GreetingAppException;
 import com.bridgelabz.greetingapp.model.Greeting;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public interface IGreetingService {
 
     Greeting addGreeting(UserDTO userDTO);
 
-    Greeting updateGreeting(long id, String name) throws GreetingAppException;
+    Greeting updateGreeting(long id, String name);
 
-    String deleteGreeting(String... name);
+    void deleteGreeting(long id);
 }
