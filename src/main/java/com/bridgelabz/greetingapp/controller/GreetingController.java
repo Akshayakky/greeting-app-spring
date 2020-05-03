@@ -2,6 +2,7 @@ package com.bridgelabz.greetingapp.controller;
 
 import com.bridgelabz.greetingapp.dto.GreetingDTO;
 import com.bridgelabz.greetingapp.dto.UserDTO;
+import com.bridgelabz.greetingapp.exception.GreetingAppException;
 import com.bridgelabz.greetingapp.model.Greeting;
 import com.bridgelabz.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,8 @@ public class GreetingController {
     }
 
     @PutMapping("/put/{name}")
-    public GreetingDTO greeting(@PathVariable String name, @RequestParam(value = "id") long id) {
-        return new GreetingDTO(greetingService.updateGreeting(name));
-    }
-
-    @PutMapping("/put/{firstName}/{lastName}")
-    public GreetingDTO greeting(@PathVariable String firstName, @PathVariable String lastName
-            , @RequestParam(value = "id") long id) {
-        return new GreetingDTO(greetingService.updateGreeting(firstName, lastName));
+    public Greeting greeting(@PathVariable String name, @RequestParam(value = "id") long id) throws GreetingAppException {
+        return greetingService.updateGreeting(id, name);
     }
 
     @DeleteMapping("/delete/{name}")
