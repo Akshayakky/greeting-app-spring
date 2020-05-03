@@ -12,7 +12,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class GreetingServiceImpl implements IGreetingService {
-    private final AtomicLong counter = new AtomicLong();
+    private static final String template = "Hello,%s!";
+    private static AtomicLong counter = new AtomicLong();
 
     @Autowired
     GreetingRepository greetingRepository;
@@ -21,21 +22,17 @@ public class GreetingServiceImpl implements IGreetingService {
     private ModelMapper modelMapper;
 
     @Override
-    public String getGreeting(String... name) {
-        String greeting = "Hello";
-        greeting += (name.length > 0) ? " " + name[0] : "";
-        greeting += (name.length > 1) ? " " + name[1] : "";
-        greeting = (greeting.equals("Hello")) ? "Hello World" : greeting;
-        return greeting;
+    public Greeting getGreeting(Long id) {
+        return greetingRepository.findById(id).get();
     }
 
     @Override
     public Greeting addGreeting(UserDTO userDTO) {
-        String message = "Hello";
-        message += (userDTO.getFirstName() != null) ? " " + userDTO.getFirstName() : "";
-        message += (userDTO.getLastName() != null) ? " " + userDTO.getLastName() : "";
-        message = (message.equals("Hello")) ? "Hello World" : message;
-        Greeting greeting = modelMapper.map(new GreetingDTO(counter.incrementAndGet(), message), Greeting.class);
+        String name = "";
+        name += (userDTO.getFirstName() != null) ? " " + userDTO.getFirstName() : "";
+        name += (userDTO.getLastName() != null) ? " " + userDTO.getLastName() : "";
+        name = (name.equals("")) ? "World" : name;
+        Greeting greeting = modelMapper.map(new GreetingDTO(String.format(template, name)), Greeting.class);
         return greetingRepository.save(greeting);
     }
 

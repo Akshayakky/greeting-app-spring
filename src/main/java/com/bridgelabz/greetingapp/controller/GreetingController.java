@@ -7,31 +7,21 @@ import com.bridgelabz.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 @RestController
 @RequestMapping("/greetingcontroller")
 public class GreetingController {
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     private IGreetingService greetingService;
 
-    @RequestMapping("/home/{name}")
-    public GreetingDTO greeting(@PathVariable String name) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.getGreeting(name));
-    }
-
-    @RequestMapping("/home/{firstName}/{lastName}")
-    public GreetingDTO greeting(@PathVariable String firstName, @PathVariable String lastName) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.getGreeting(firstName, lastName));
+    @RequestMapping("/home/{id}")
+    public Greeting greeting(@PathVariable Long id) {
+        return greetingService.getGreeting(id);
     }
 
     @GetMapping("/greeting")
-    public GreetingDTO greetingParam(@RequestParam(value = "firstName", defaultValue = "") String firstName,
-                                     @RequestParam(value = "lastName", defaultValue = "") String lastName) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.getGreeting(firstName, lastName));
+    public Greeting greetingParam(@RequestParam(value = "id", defaultValue = "") Long id) {
+        return greetingService.getGreeting(id);
     }
 
     @PostMapping("/post")
@@ -41,22 +31,22 @@ public class GreetingController {
 
     @PutMapping("/put/{name}")
     public GreetingDTO greeting(@PathVariable String name, @RequestParam(value = "id") long id) {
-        return new GreetingDTO(id, greetingService.updateGreeting(name));
+        return new GreetingDTO(greetingService.updateGreeting(name));
     }
 
     @PutMapping("/put/{firstName}/{lastName}")
     public GreetingDTO greeting(@PathVariable String firstName, @PathVariable String lastName
             , @RequestParam(value = "id") long id) {
-        return new GreetingDTO(id, greetingService.updateGreeting(firstName, lastName));
+        return new GreetingDTO(greetingService.updateGreeting(firstName, lastName));
     }
 
     @DeleteMapping("/delete/{name}")
     public GreetingDTO greetingDelete(@PathVariable String name) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.deleteGreeting(name));
+        return new GreetingDTO(greetingService.deleteGreeting(name));
     }
 
     @DeleteMapping("/delete/{firstName}/{lastName}")
     public GreetingDTO greetingDelete(@PathVariable String firstName, @PathVariable String lastName) {
-        return new GreetingDTO(counter.incrementAndGet(), greetingService.deleteGreeting(firstName, lastName));
+        return new GreetingDTO(greetingService.deleteGreeting(firstName, lastName));
     }
 }

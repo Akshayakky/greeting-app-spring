@@ -4,7 +4,7 @@ import com.bridgelabz.greetingapp.dto.UserDTO;
 import com.bridgelabz.greetingapp.model.Greeting;
 
 public interface IGreetingService {
-    String getGreeting(String... name);
+    Greeting getGreeting(Long id);
 
     Greeting addGreeting(UserDTO userDTO);
 

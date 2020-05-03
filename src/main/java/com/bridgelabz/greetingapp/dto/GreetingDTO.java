@@ -1,20 +1,10 @@
 package com.bridgelabz.greetingapp.dto;
 
 public class GreetingDTO {
-    private long id;
     private String message;
 
-    public GreetingDTO(long id, String message) {
-        this.id = id;
+    public GreetingDTO(String message) {
         this.message = message;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getMessage() {
