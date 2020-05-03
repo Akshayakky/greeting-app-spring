@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -22,8 +23,13 @@ public class GreetingServiceImpl implements IGreetingService {
     private ModelMapper modelMapper;
 
     @Override
-    public Greeting getGreeting(Long id) {
-        return greetingRepository.findById(id).get();
+    public Greeting getGreeting(Long... id) {
+        return greetingRepository.findById(id[0]).get();
+    }
+
+    @Override
+    public List<Greeting> getAllGreeting() {
+        return greetingRepository.findAll();
     }
 
     @Override

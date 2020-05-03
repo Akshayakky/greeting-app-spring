@@ -3,8 +3,12 @@ package com.bridgelabz.greetingapp.service;
 import com.bridgelabz.greetingapp.dto.UserDTO;
 import com.bridgelabz.greetingapp.model.Greeting;
 
+import java.util.List;
+
 public interface IGreetingService {
-    Greeting getGreeting(Long id);
+    List<Greeting> getAllGreeting();
+
+    Greeting getGreeting(Long... id);
 
     Greeting addGreeting(UserDTO userDTO);
 

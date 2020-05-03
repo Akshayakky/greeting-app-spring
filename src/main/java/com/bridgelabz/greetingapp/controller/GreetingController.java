@@ -7,6 +7,8 @@ import com.bridgelabz.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/greetingcontroller")
 public class GreetingController {
@@ -14,14 +16,19 @@ public class GreetingController {
     @Autowired
     private IGreetingService greetingService;
 
-    @RequestMapping("/home/{id}")
+    @RequestMapping("/get/{id}")
     public Greeting greeting(@PathVariable Long id) {
         return greetingService.getGreeting(id);
     }
 
-    @GetMapping("/greeting")
+    @GetMapping("/get")
     public Greeting greetingParam(@RequestParam(value = "id", defaultValue = "") Long id) {
         return greetingService.getGreeting(id);
+    }
+
+    @GetMapping("/get/all")
+    public List<Greeting> greetingParam() {
+        return greetingService.getAllGreeting();
     }
 
     @PostMapping("/post")
