@@ -35,8 +35,9 @@ public class GreetingServiceImpl implements IGreetingService {
     @Override
     public Greeting addGreeting(UserDTO userDTO) {
         String name = "";
-        name += (userDTO.getFirstName() != null) ? (userDTO.getLastName() != null) ?
-                userDTO.getFirstName() + " " + userDTO.getLastName() : userDTO.getFirstName() : "";
+        name += (userDTO.getFirstName() != null) ? userDTO.getFirstName() : "";
+        name += (userDTO.getLastName() != null) ? (name.equals("") ? userDTO.getLastName()
+                : " " + userDTO.getLastName()) : "";
         name = (name.equals("")) ? "World" : name;
         Greeting greeting = modelMapper.map(new GreetingDTO(String.format(template, name)), Greeting.class);
         return greetingRepository.save(greeting);
