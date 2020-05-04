@@ -60,6 +60,7 @@ public class GreetingServiceImpl implements IGreetingService {
 
     @Override
     public void deleteGreeting(long id) {
+        //Find record by id and delete it
         greetingRepository.delete(greetingRepository.getOne(id));
     }
 }
